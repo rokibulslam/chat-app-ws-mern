@@ -8,7 +8,7 @@ const app = express()
 app.get("/", (req, res) => {
     res.send("API is Running")
 })
-app.get("/chat", (req, res) => {
+app.get("/chats", (req, res) => {
     res.send(chats)
 })
 
