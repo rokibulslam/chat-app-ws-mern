@@ -9,6 +9,7 @@ const Chat = () => {
         const {data} = await axios.get('/chats')
         setChats(data)
     }
+    
     // Fetch chat data 
     useEffect(() => {
        fetchChats()
