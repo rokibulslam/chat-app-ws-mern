@@ -1,6 +1,7 @@
 const express = require("express")
 const { chats } = require("./data/data")
 const connectDB = require("./Config/db")
+
 connectDB()
 const app = express()
 
