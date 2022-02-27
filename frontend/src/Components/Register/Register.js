@@ -12,15 +12,18 @@ const Register = () => {
         newUserData[name] = value;
         setUserData(newUserData)
     }
+  console.log(userData)
     const handleOnClick = (e) => {
         e.preventDefault()
         setShow(!show)
     }
-  
+  const handleSubmit = (e) => {
+      e.preventDefault()
+    }
     return (
       <div>
         <div>
-          <Form >
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <Form.Control
                 onChange={handleOnChange}
@@ -47,7 +50,7 @@ const Register = () => {
                 />
               </InputGroup>
             </Form.Group>
-            {/* <Form.Group className="mb-3" controlId="formGroupPassword">
+            <Form.Group className="mb-3" controlId="formGroupPassword">
               <InputGroup>
                 <Form.Control
                   onChange={handleOnChange}
@@ -55,13 +58,24 @@ const Register = () => {
                   type={show ? "text" : "password"}
                   placeholder="Password"
                 />
-                <InputGroup.Text
-                  onClick={handleOnClick}
-                >
-                  <button style={{border: '0px'}}>{show ? "Show" : "Hide"}</button>
+                <InputGroup.Text onClick={handleOnClick}>
+                  <button style={{ border: "0px" }}>
+                    {show ? "Show" : "Hide"}
+                  </button>
                 </InputGroup.Text>
               </InputGroup>
-            </Form.Group> */}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formGroupPassword">
+              <InputGroup>
+                <Form.Control
+                  onChange={handleOnChange}
+                  name="password"
+                  type="file"
+                  placeholder="Picture"
+                />
+                <button style={{marginLeft: '20px'}} type="submit">Submit</button>
+              </InputGroup>
+            </Form.Group>
           </Form>
         </div>
       </div>

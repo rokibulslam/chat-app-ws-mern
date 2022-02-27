@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Form, InputGroup } from "react-bootstrap";
+import { Button, Form, InputGroup } from "react-bootstrap";
 
 const Login = () => {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState('');
   const [show, setShow] = useState(false);
+  const [guestEmail, setGuestEmail]=useState('')
+  const [guestPas, setGuestPas]=useState('')
   const handleOnChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -15,11 +17,16 @@ const Login = () => {
     e.preventDefault();
     setShow(!show);
   };
+  const handleSubmit = (e) => [
+    e.preventDefault()
+
+  
+  ]
   console.log(userData);
   return (
     <div>
       <div>
-        <Form>
+        <Form onSubmit={handleSubmit}>
          
           <Form.Group className="mb-3" controlId="formGroupPassword">
             <Form.Control
@@ -42,7 +49,12 @@ const Login = () => {
                   {show ? "Show" : "Hide"}
                 </button>
               </InputGroup.Text>
+              <button type="submit">Login</button>
             </InputGroup>
+            <Button className="w-100" onClick={() => {
+              setGuestEmail("guest@gmail.com");
+              setGuestPas("123456")
+            }}>Guest</Button>
           </Form.Group>
         </Form>
       </div>
