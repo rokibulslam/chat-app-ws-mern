@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
+import axios from "axios"
 import './Register.css'
 const Register = () => {
     const [userData, setUserData] = useState()
@@ -15,11 +16,11 @@ const Register = () => {
         e.preventDefault()
         setShow(!show)
     }
-    console.log(userData)
+  
     return (
       <div>
         <div>
-          <Form>
+          <Form >
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <Form.Control
                 onChange={handleOnChange}
@@ -40,13 +41,13 @@ const Register = () => {
               <InputGroup>
                 <Form.Control
                   onChange={handleOnChange}
-                  name="password1"
+                  name="password"
                   type={show ? "text" : "password"}
                   placeholder="Password"
                 />
               </InputGroup>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formGroupPassword">
+            {/* <Form.Group className="mb-3" controlId="formGroupPassword">
               <InputGroup>
                 <Form.Control
                   onChange={handleOnChange}
@@ -60,7 +61,7 @@ const Register = () => {
                   <button style={{border: '0px'}}>{show ? "Show" : "Hide"}</button>
                 </InputGroup.Text>
               </InputGroup>
-            </Form.Group>
+            </Form.Group> */}
           </Form>
         </div>
       </div>

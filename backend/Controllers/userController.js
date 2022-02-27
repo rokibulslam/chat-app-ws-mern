@@ -4,6 +4,8 @@
 const asyncHandler = require('express-async-handler');
 const res = require('express/lib/response');
 const User = require('../models/userModel')
+const generateToken = require('./generateToken')
+
 
 const registerUser = asyncHandler( async(req, res)=> {
     
@@ -26,12 +28,15 @@ const registerUser = asyncHandler( async(req, res)=> {
     if (user) {
         res.status(201).json({
             _id: user._id,
-            name: user.name,        //if success
+            name: user.name,        //if success  to create a new user
             email: user.email,
             picture: user.pic,
+            token: generateToken(user._id)
         }) 
     } else {
-        res.status(400);
+        res.status(400)                             //if failed to create user                   
         throw new Error("Failed to create User")
     }
 })
+
+module.exports = {registerUser};
