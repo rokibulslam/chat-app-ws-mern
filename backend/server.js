@@ -8,7 +8,9 @@ const app = express()
 
 //for accepting json data 
 app.use(express.json())
-
+// Error handling middlware 
+app.use(notFound)
+app.use(errorHandler)
 
 app.get("/", (req, res) => {
     res.send("API is Running")
