@@ -1,11 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { Button, Form, InputGroup, Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [userData, setUserData] = useState('');
   const [show, setShow] = useState(false);
-  const [guestEmail, setGuestEmail]=useState('')
-  const [guestPas, setGuestPas]=useState('')
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleOnChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -13,21 +16,48 @@ const Login = () => {
     newUserData[name] = value;
     setUserData(newUserData);
   };
+  console.log(userData)
   const handleOnClick = (e) => {
     e.preventDefault();
     setShow(!show);
   };
-  const handleSubmit = (e) => [
-    e.preventDefault()
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    setIsLoading(true)
+    // if (!userData) {
+    //   alert("Enter Email and Password")
+    //   setIsLoading(false);
+    //   return;
+    // }
+    
+    try {
+      const config = {
+        Headers: {
+          "Content-type":"application/json"
+        }
+      }
+     const { data } = await axios.post(
+       "http://localhost:5000/api/user/login",
+       userData, config
+     )
+      alert("Registration Successfull");
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setIsLoading(false);
+      navigate("/chats");
+    } catch (error) {
+      alert("Something Error")
+    }
+    setIsLoading(false)
+  }
+    
 
   
-  ]
-  console.log(userData);
+  
+
   return (
     <div>
       <div>
         <Form onSubmit={handleSubmit}>
-         
           <Form.Group className="mb-3" controlId="formGroupPassword">
             <Form.Control
               onChange={handleOnChange}
@@ -40,7 +70,7 @@ const Login = () => {
             <InputGroup>
               <Form.Control
                 onChange={handleOnChange}
-                name="password2"
+                name="password"
                 type={show ? "text" : "password"}
                 placeholder="Password"
               />
@@ -49,12 +79,11 @@ const Login = () => {
                   {show ? "Show" : "Hide"}
                 </button>
               </InputGroup.Text>
-              <button type="submit">Login</button>
             </InputGroup>
-            <Button className="w-100" onClick={() => {
-              setGuestEmail("guest@gmail.com");
-              setGuestPas("123456")
-            }}>Guest</Button>
+            <Button className="w-100 btn-danger mb-2" type="submit">
+              Login
+            </Button>
+            {isLoading && <Spinner animation="grow" variant="warning" />}
           </Form.Group>
         </Form>
       </div>
