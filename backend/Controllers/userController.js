@@ -39,7 +39,7 @@ const registerUser = asyncHandler( async(req, res)=> {
     }
 })
 
-// Auth User 
+// Find one user & match user auth
 const authUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email })
@@ -59,5 +59,19 @@ const authUser = asyncHandler(async (req, res) => {
     }
 
 })
+// Searching Api: /api/user?search=piyush
+const allUser = asyncHandler(async (req, res) => {
+    const search = req.query.search
+      ? {
+          $or: [
+            { name: { $regex: req.query.search, $options: "i" } },
+            { email: { $regex: req.query.search, $options: "i" } },
+          ],
+        }
+      : {};
+    // search user 
+    const users = await User.find(search)
+    res.send(users)
+})
 
-module.exports = {registerUser, authUser};
+module.exports = {registerUser, authUser, allUser};
