@@ -70,7 +70,7 @@ const allUser = asyncHandler(async (req, res) => {
         }
       : {};
     // search user 
-    const users = await User.find(search)
+    const users = await (await User.find(search)).find({_id: {$ne: req.user._id}})
     res.send(users)
 })
 

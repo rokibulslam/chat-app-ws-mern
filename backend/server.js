@@ -2,6 +2,7 @@ const express = require("express")
 const { chats } = require("./data/data")
 const connectDB = require("./Config/db")
 const userRoutes = require('./Routes/userRoutes')
+const chatRoutes = require("./Routes/chatRoutes");
 const { notFound, errorHandler } = require("./middleware/errorHandle")
 const cors = require("cors");
 connectDB()
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 })
 
 app.use('/api/user', userRoutes)
+app.use("/api/chat", chatRoutes);
 
 // run server 
 app.listen(5000, console.log("Server Running on PORT 5000"))
